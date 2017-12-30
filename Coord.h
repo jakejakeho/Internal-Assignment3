@@ -13,7 +13,7 @@ using namespace std;
 template<typename T> class Coord;
 template<typename T> ostream& operator<< (ostream&, const Coord<T>&);
 
-template<typename T>
+template<typename T = uint16_t>
 class Coord {
 public:
 	Coord();
@@ -22,10 +22,8 @@ public:
 	Coord(Coord<U>);
 	~Coord();
 
-	T getX();
-	void setX(T);
-	T getY();
-	void setY(T);
+	T x;
+	T y;
 
 	Coord<T> operator+(const Coord<T>&);
 	Coord<T> operator-(const Coord<T>&);
@@ -42,8 +40,7 @@ public:
 	static float fsqrt(float);
 
 private:
-	T x;
-	T y;
+
 };
 
 #include "Coord.tpp"

@@ -19,42 +19,27 @@ Coord<T>::Coord(const T X, const T Y):x(X),y(Y) {}
 template<typename T>
 template <class U>
 Coord<T>::Coord(Coord<U> c){
-	this->x = c.getX();
-	this->y = c.getY();
+	this->x = c.x;
+	this->y = c.y;
 }
 
 template<typename T>
 Coord<T>::~Coord() {}
 
-
-// getter & setter
-template<typename T>
-T Coord<T>::getX(){return x;}
-
-template<typename T>
-void Coord<T>::setX(T x){this->x = x;}
-
-template<typename T>
-T Coord<T>::getY(){return y;}
-
-template<typename T>
-void Coord<T>::setY(T y){this->y = y;}
-
-
 // operator overloading
 template<typename T>
 Coord<T> Coord<T>::operator+(const Coord<T>& c){
 	Coord<T> *newC = new Coord<T>;
-	newC->setX(this->x + c.x);
-	newC->setY(this->y + c.y);
+	newC->y = (this->x + c.x);
+	newC->y = (this->y + c.y);
 	return *newC;
 }
 
 template<typename T>
 Coord<T> Coord<T>::operator-(const Coord<T>& c){
 	Coord<T> *newC = new Coord<T>;
-	newC->setX(this->x - c.x);
-	newC->setY(this->y - c.y);
+	newC->y = (this->x - c.x);
+	newC->y = (this->y - c.y);
 	return *newC;
 }
 

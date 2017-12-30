@@ -11,9 +11,9 @@ using namespace std;
 
 
 int main(){
-	Coord<float> *c1 = new Coord<float>(0.5, 0.5);
+	Coord<float> *c1 = new Coord<float>(0.6, 0.6);
 	Coord<float> *c2 = new Coord<float>(1.5, 1.5);
-	Coord<float> *c3 = new Coord<float>(2.5, 0.5);
+	Coord<float> *c3 = new Coord<float>(2.8, 0.8);
 
 	cout << "c1:\t\t" << *c1;
 	cout << "c2:\t\t" << *c2;
