@@ -10,10 +10,10 @@
 #include <iostream>
 using namespace std;
 
-template<typename T> class Coord;
-template<typename T> ostream& operator<< (ostream&, const Coord<T>&);
+template<typename T = uint16_t> class Coord;
+template<typename T = uint16_t>ostream& operator<< (ostream&, const Coord<T>&);
 
-template<typename T = uint16_t>
+template<typename T>
 class Coord {
 public:
 	Coord();
@@ -38,9 +38,6 @@ public:
 	T getRadius(Coord<T>*, Coord<T>*);
 
 	static float fsqrt(float);
-
-private:
-
 };
 
 #include "Coord.tpp"

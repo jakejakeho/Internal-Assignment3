@@ -18,7 +18,7 @@ Coord<T>::Coord(const T X, const T Y):x(X),y(Y) {}
 
 template<typename T>
 template <class U>
-Coord<T>::Coord(Coord<U> c){
+Coord<T>::Coord(Coord<U> c) {
 	this->x = c.x;
 	this->y = c.y;
 }
@@ -28,70 +28,83 @@ Coord<T>::~Coord() {}
 
 // operator overloading
 template<typename T>
-Coord<T> Coord<T>::operator+(const Coord<T>& c){
+Coord<T> Coord<T>::operator+(const Coord<T>& c) {
 	Coord<T> *newC = new Coord<T>;
-	newC->y = (this->x + c.x);
+	newC->x = (this->x + c.x);
 	newC->y = (this->y + c.y);
 	return *newC;
 }
 
 template<typename T>
-Coord<T> Coord<T>::operator-(const Coord<T>& c){
+Coord<T> Coord<T>::operator-(const Coord<T>& c) {
 	Coord<T> *newC = new Coord<T>;
-	newC->y = (this->x - c.x);
+	newC->x = (this->x - c.x);
 	newC->y = (this->y - c.y);
 	return *newC;
 }
 
 template<typename T>
-Coord<T>& Coord<T>::operator+=(const Coord<T>& c){
+Coord<T>& Coord<T>::operator+=(const Coord<T>& c) {
 	this->x += c.x;
 	this->y += c.y;
 	return *this;
 }
 
 template<typename T>
-Coord<T>& Coord<T>::operator-=(const Coord<T>& c){
+Coord<T>& Coord<T>::operator-=(const Coord<T>& c) {
 	this->x -= c.x;
 	this->y -= c.y;
 	return *this;
 }
 
 template<typename T>
-ostream& operator<<( ostream& os, const Coord<T>& c){
-    os << "x: " << c.x << " y: " << c.y << endl;
+ostream& operator<<(ostream& os, const Coord<T>& c) {
+    os << "(" << c.x << ", " << c.y << ")" << endl;
     return os;
 }
 
 
 // methods
 template<typename T>
-T Coord<T>::getDistance(const Coord<T>* c){
-	return fsqrt(pow((c->x - this->x),2) + pow((c->y - this->y),2));
+T Coord<T>::getDistance(const Coord<T>* c) {
+ 	T dx = (c->x - this->x);
+ 	T dy = (c->y - this->y);
+	return fsqrt(pow(dx,2) + pow(dy,2));
 }
 
 template<typename T>
-T Coord<T>::getMDistance(const Coord<T>* c){
-	return abs((c->x - this->x)) + abs((c->y - this->y));
+T Coord<T>::getMDistance(const Coord<T>* c) {
+	T dx = (c->x - this->x);
+	T dy = (c->y - this->y);
+	return abs(dx) + abs(dy);
 }
 
 template<typename T>
-T Coord<T>::getSlope(const Coord<T>* c){
-	return pow((c->x - this->x),2) / pow((c->y - this->y),2);
+T Coord<T>::getSlope(const Coord<T>* c) {
+	T dx = (c->x - this->x);
+	T dy = (c->y - this->y);
+	return dy/dx;
 }
 
 template<typename T>
-T Coord<T>::getTriangleArea(const Coord<T>* b, const Coord<T>* c){
-	return abs((this->x * (b->y - c->y) + b->x * (c->y - this->y) + c->x * (this->y - b->y)) / 2);
+T Coord<T>::getTriangleArea(const Coord<T>* b, const Coord<T>* c) {
+	T ByCyDiff = b->y - c->y;
+	T CyAyDiff = c->y - this->y;
+	T AyByDiff = this->y - b->y;
+	return abs((this->x * ByCyDiff + b->x * CyAyDiff + c->x * AyByDiff) / 2);
 }
 
 template<typename T>
-T Coord<T>::getRadius(Coord<T>* b, Coord<T>* c){
-	return this->getMDistance(b) *b->getMDistance(c) * c->getMDistance(this) / (4 * getTriangleArea(b,c));
+T Coord<T>::getRadius(Coord<T>* b, Coord<T>* c) {
+	T AB = this->getDistance(b);
+	T BC = b->getDistance(c);
+	T CA = c->getDistance(this);
+	T areaABC = getTriangleArea(b,c);
+	return  (AB * BC * CA) / (4 * areaABC);
 }
 
 template<typename T>
-float Coord<T>::fsqrt(float x){
+float Coord<T>::fsqrt(float x) {
 	unsigned int i = *(unsigned int*) &x;
 	// adjust bias
 	i  += 127 << 23;
